@@ -1,8 +1,7 @@
+using System.Text.Json;
 using Corvus.Json;
-using Corvus.Json.Internal;
 using UCP.Model.Discovery;
 using UCP.Model.Schemas.Shopping;
-// JsonValueConverter.EnableInefficientDeserializationSupport = true;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,11 +20,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
 }
-app.Use((context, next) =>
-{
-    Console.Write(context.Request.Body);
-    return next(context);
-});
 // app.UseHttpsRedirection();
 app.UseRouting();
 
@@ -60,12 +54,23 @@ app.MapGet("/.well-known/ucp", (HttpContext context, AppStateService appStateSer
     return TypedResults.Ok(businessProfile);
 
 });
-app.MapPost("/checkout-sessions", (Checkout checkout) =>
+app.MapPost("/checkout-sessions", async (HttpRequest request) =>
 {
+
+    using JsonDocument document = await JsonDocument.ParseAsync(request.Body);
+    CheckoutCreateRequest checkout = new CheckoutCreateRequest(document.RootElement);
+    var result = checkout.Validate(ValidationContext.ValidContext, ValidationLevel.Detailed);
     // TODO: Implement Logic
-    if (checkout.IsValid()) return Results.Created();
-    return Results.UnprocessableEntity();
-});
+    
+    if (result.IsValid) return Results.Created();
+    var validationErrors = new Dictionary<string, string[]>();
+    foreach (ValidationResult error in result.Results)
+    {
+        validationErrors.Add(error.Location.ToString(), [error.Message]);
+    }
+    
+    return TypedResults.ValidationProblem(validationErrors);
+}).Accepts<CheckoutCreateRequest>("application/json");
 
 app.Run();
 public record CheckoutDto(string hello);
