@@ -1,0 +1,20 @@
+{
+  "title": "Retail Location (Update Request)",
+  "description": "A pickup location (retail store, locker, etc.).",
+  "type": "object",
+  "ucp_shared_request": true,
+  "required": [
+    "name"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Location name (e.g., store name)."
+    },
+    "address": {
+      "$ref": "postal_address.json",
+      "description": "Physical address of the location."
+    }
+  }
+}

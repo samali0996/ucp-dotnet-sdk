@@ -23,16 +23,16 @@
 
   <ItemGroup>
     <!-- <AdditionalFiles Include="temp_schemas/schemas/transports/embedded_config.json" /> -->
-    <AdditionalFiles Include="source/discovery/profile_schema.json" />
-    <AdditionalFiles Include="source/schemas/**/*.json" />
+    <!-- <AdditionalFiles Include="source/discovery/profile_schema.json" /> -->
+    <!-- <AdditionalFiles Include="source/schemas/**/*.json" /> -->
     <AdditionalFiles Include="temp_schemas/discovery/profile_schema.json" />
     <AdditionalFiles Include="temp_schemas/schemas/**/*.json" />
 
   </ItemGroup>
-  <PropertyGroup>
+  <!-- <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>file.xml</DocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn> 
-  </PropertyGroup>
+  </PropertyGroup> -->
 
 </Project>

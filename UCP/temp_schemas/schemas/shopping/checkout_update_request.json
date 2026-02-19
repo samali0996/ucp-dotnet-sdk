@@ -1,0 +1,35 @@
+{
+  "name": "dev.ucp.shopping.checkout",
+  "title": "Checkout (Update Request)",
+  "description": "Base checkout schema. Extensions compose onto this using allOf.",
+  "type": "object",
+  "required": [
+    "id",
+    "line_items"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the checkout session."
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "$ref": "types/line_item_update_request.json"
+      },
+      "description": "List of line items being checked out."
+    },
+    "buyer": {
+      "$ref": "types/buyer.json",
+      "description": "Representation of the buyer."
+    },
+    "context": {
+      "$ref": "types/context.json",
+      "ucp_response": "omit"
+    },
+    "payment": {
+      "$ref": "payment.json"
+    }
+  }
+}

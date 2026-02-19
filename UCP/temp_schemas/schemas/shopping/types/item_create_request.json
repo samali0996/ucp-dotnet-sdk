@@ -1,0 +1,13 @@
+{
+  "title": "Item (Create Request)",
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The product identifier, often the SKU, required to resolve the product details associated with this line item. Should be recognized by both the Platform, and the Business."
+    }
+  }
+}

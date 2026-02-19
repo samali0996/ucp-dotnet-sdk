@@ -1,0 +1,8 @@
+{
+  "title": "Fulfillment Option (Create Request)",
+  "description": "A fulfillment option within a group (e.g., Standard Shipping $5, Express $15).",
+  "type": "object",
+  "ucp_shared_request": true,
+  "additionalProperties": true,
+  "properties": {}
+}

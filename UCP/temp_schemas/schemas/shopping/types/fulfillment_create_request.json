@@ -1,0 +1,15 @@
+{
+  "title": "Fulfillment (Create Request)",
+  "description": "Container for fulfillment methods and availability.",
+  "type": "object",
+  "ucp_shared_request": true,
+  "properties": {
+    "methods": {
+      "type": "array",
+      "description": "Fulfillment methods for cart items.",
+      "items": {
+        "$ref": "fulfillment_method_create_request.json"
+      }
+    }
+  }
+}

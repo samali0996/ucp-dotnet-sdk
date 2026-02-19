@@ -1,0 +1,14 @@
+{
+  "title": "Fulfillment Destination",
+  "description": "A destination for fulfillment.",
+  "type": "object",
+  "ucp_shared_request": true,
+  "oneOf": [
+    {
+      "$ref": "shipping_destination.json"
+    },
+    {
+      "$ref": "retail_location.json"
+    }
+  ]
+}

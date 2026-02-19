@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Corvus.Json;
 using UCP.Model.Discovery;
+using UCP.Model.Schemas.Service;
 using UCP.Model.Schemas.Shopping;
 
 
@@ -58,8 +59,11 @@ app.MapPost("/checkout-sessions", async (HttpRequest request) =>
 {
 
     using JsonDocument document = await JsonDocument.ParseAsync(request.Body);
-    CheckoutCreateRequest checkout = new CheckoutCreateRequest(document.RootElement);
-    var result = checkout.Validate(ValidationContext.ValidContext, ValidationLevel.Detailed);
+    // CheckoutCreateRequest checkout = new CheckoutCreateRequest(document.RootElement);
+    UnifiedCheckoutCreateRequest unifiedCheckoutCreateRequest = new UnifiedCheckoutCreateRequest(document);
+    // BuyerConsent buyer = new BuyerConsent.Create();
+    // BuyerConsent buyerConsent = BuyerConsent.Create(null, null, null, null);
+    var result = unifiedCheckoutCreateRequest.BuyerConsent.Validate(ValidationContext.ValidContext, ValidationLevel.Detailed);
     // TODO: Implement Logic
     
     if (result.IsValid) return Results.Created();
@@ -70,13 +74,22 @@ app.MapPost("/checkout-sessions", async (HttpRequest request) =>
     }
     
     return TypedResults.ValidationProblem(validationErrors);
-}).Accepts<CheckoutCreateRequest>("application/json");
+}).Accepts<UnifiedCheckoutCreateRequest>("application/json");
 
 app.Run();
 public record CheckoutDto(string hello);
 public class AppStateService
 {
     public Guid UUID { get; set; } = Guid.NewGuid();
+}
+
+public class UnifiedCheckoutCreateRequest
+{
+    public BuyerConsent BuyerConsent {get; set;}
+    public UnifiedCheckoutCreateRequest(JsonDocument document)
+    {
+        this.BuyerConsent = new BuyerConsent(document.RootElement);
+    }
 }
 
 

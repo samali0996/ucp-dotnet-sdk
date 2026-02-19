@@ -1,0 +1,30 @@
+{
+  "name": "dev.ucp.shopping.checkout",
+  "title": "Checkout (Create Request)",
+  "description": "Base checkout schema. Extensions compose onto this using allOf.",
+  "type": "object",
+  "required": [
+    "line_items"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "line_items": {
+      "type": "array",
+      "items": {
+        "$ref": "types/line_item_create_request.json"
+      },
+      "description": "List of line items being checked out."
+    },
+    "buyer": {
+      "$ref": "types/buyer.json",
+      "description": "Representation of the buyer."
+    },
+    "context": {
+      "$ref": "types/context.json",
+      "ucp_response": "omit"
+    },
+    "payment": {
+      "$ref": "payment.json"
+    }
+  }
+}

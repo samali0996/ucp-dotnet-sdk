@@ -1,0 +1,15 @@
+{
+  "name": "dev.ucp.shopping.checkout",
+  "title": "Checkout (Complete Request)",
+  "description": "Base checkout schema. Extensions compose onto this using allOf.",
+  "type": "object",
+  "required": [
+    "payment"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "payment": {
+      "$ref": "payment.json"
+    }
+  }
+}

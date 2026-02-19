@@ -1,0 +1,24 @@
+{
+  "title": "Shipping Destination",
+  "description": "Shipping destination.",
+  "type": "object",
+  "ucp_shared_request": true,
+  "allOf": [
+    {
+      "$ref": "postal_address.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID specific to this shipping destination.",
+          "ucp_request": "optional"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  ]
+}
